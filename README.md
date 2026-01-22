@@ -1,6 +1,6 @@
 # isen-ros-docker
 
-A simple container for hosting ROS 1 noetic.
+A simple container for hosting ROS 1 noetic. 
 
 based on :
 
@@ -11,8 +11,13 @@ based on :
 Features:
 
 - X11 forwarding
+- shared volume
 
 ## Setup
+
+### Step 0: create your catkin_ws folder
+
+Create a folder named catkin_ws in your current directory
 
 ### Step 1: Build the image
 
@@ -39,3 +44,7 @@ docker ps
 To run a terminal in interactive mode
  
 docker exec -it ros_noetic_isen /bin/bash
+
+note:
+
+you shall also have access to your catkin_ws folder in WSL.
