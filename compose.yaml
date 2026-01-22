@@ -1,0 +1,13 @@
+
+services:
+  ros_noetic:
+    build: .
+    container_name: ros_noetic_isen
+    environment:
+      - DISPLAY=${DISPLAY}          # Pour l'affichage X11
+      - QT_X11_NO_MITSHM=1         # Pour éviter certains bugs Qt
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw  # Accès au serveur X de l'hôte
+      - ./catkin_ws:/root/catkin_ws # attention : il faut modifier l'utilisateur par défaut
+    tty: true
+    stdin_open: true
