@@ -5,6 +5,8 @@ Based on [osrf/ros:noetic-desktop-full](https://hub.docker.com/layers/osrf/ros/n
 
 ---
 
+*note* Default user is: rosuser (no password required, added to sudo group)
+
 ## Requirements
 
 - **WSL2** (Windows Subsystem for Linux v2)  
