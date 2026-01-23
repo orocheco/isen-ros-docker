@@ -1,13 +1,19 @@
 
 services:
-  ros_noetic:
-    build: .
+  ros_noetic_isen:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     container_name: ros_noetic_isen
     environment:
-      - DISPLAY=${DISPLAY}          # Pour l'affichage X11
+      - DISPLAY=${DISPLAY}         # Pour l'affichage X11
       - QT_X11_NO_MITSHM=1         # Pour éviter certains bugs Qt
+      - ROS_HOME=/workspace
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw  # Accès au serveur X de l'hôte
-      - ./catkin_ws:/root/catkin_ws # attention : il faut modifier l'utilisateur par défaut
+      - ./catkin_ws:/workspace/catkin_ws
+    working_dir: /workspace
     tty: true
     stdin_open: true
+    user: "${UID:-1000}:${GID:-1000}"      # Utilisateur non-root, valeurs par défaut 1000:1000
+

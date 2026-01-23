@@ -1,50 +1,85 @@
-# isen-ros-docker
+# ISEN ROS Docker (v0.1)
 
-A simple container for hosting ROS 1 noetic. 
+A custom Docker container running **ROS Noetic (full desktop)** with GUI tools (`rviz`, `rqt`) and some basic utilities (`nano`, `vim`).  
+Based on [osrf/ros:noetic-desktop-full](https://hub.docker.com/layers/osrf/ros/noetic-desktop-full/images/sha256-bfb0effabc17db413c112b4aa368a11918fd84aa9470e830b044d7ce72e84f19).
 
-based on :
+---
 
-3rd-party tools:
+## Requirements
 
-- nano, vim
+- **WSL2** (Windows Subsystem for Linux v2)  
+- **WSLg** (to support GUI applications like `rviz`)
 
-Features:
-
-- X11 forwarding
-- shared volume
+---
 
 ## Setup
 
-### Step 0: create your catkin_ws folder
+1. Create a `catkin_ws` workspace in your current directory:
 
-Create a folder named catkin_ws in your current directory
+```bash
+mkdir -p catkin_ws/src
+```
 
-### Step 1: Build the image
+Or use the helper:
 
-Run the following command to build your image:
+```bash
+make setup
+```
 
-docker compose build
+---
+
+## Steps to Use
+
+### Step 1: Build the Docker image
+
+```bash
+make build
+```
+
+This will build the custom ROS Noetic image.
 
 ### Step 2: Start the container
 
-Run the following command to run your container:
+```bash
+make up
+```
 
-docker compose up -d
+After this, a container named `ros_noetic_isen` should be running.
 
-### Step 3 : Check if everything is running
+Check with:
 
-A container named ros_noetic_isen shall be running. Check with:
-
+```bash
 docker ps
+```
+
+---
 
 ## Usage
 
-### Access ROS from a terminal
+### Access a terminal in the container
 
-To run a terminal in interactive mode
- 
+```bash
 docker exec -it ros_noetic_isen /bin/bash
+```
 
-note:
+or use the helper
 
-you shall also have access to your catkin_ws folder in WSL.
+```bash
+make bash
+```
+
+
+You can now interact with ROS inside the container.
+
+### Stop the container
+
+```bash
+make stop
+```
+
+---
+
+## Notes
+
+- Your `catkin_ws` folder from WSL is mounted inside the container, so any code you create is accessible both in WSL and in Docker.  
+- GUI tools (`rviz`, `rqt`) should work via **WSLg** without additional X server setup.
